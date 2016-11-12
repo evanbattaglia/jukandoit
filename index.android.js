@@ -9,10 +9,23 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
+const Sound = require('react-native-sound');
+
 
 export default class jukandoit extends Component {
+  onPressPlay() {
+    var s = new Sound('advertising.mp3', Sound.MAIN_BUNDLE, (e) => {
+      if (e) {
+        console.log('error', e);
+      } else {
+        console.log('duration', s.getDuration());
+        s.play();
+      }
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -26,6 +39,13 @@ export default class jukandoit extends Component {
           Double tap R on your keyboard to reload,{'\n'}
           Shake or press menu button for dev menu
         </Text>
+        <Button
+          onPress={this.onPressPlay.bind(this)}
+          title="Pleay"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+
       </View>
     );
   }

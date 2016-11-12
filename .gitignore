@@ -44,4 +44,4 @@ android/keystores/debug.keystore
 .index.android.js.swp
 
 # jukandoit
-accesstoken.js
+config.js

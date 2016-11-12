@@ -1,0 +1,4 @@
+module.exports = {
+  accessToken: 'YOUR_ACCESS_TOKEN_HERE',
+  testSong: '/path/to/a/song/on/dropbox'
+};

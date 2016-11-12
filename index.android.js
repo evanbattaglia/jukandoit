@@ -13,10 +13,20 @@ import {
   Button
 } from 'react-native';
 const Sound = require('react-native-sound');
-
+const dropbox = require('dropbox');
+var Dropbox = require('dropbox');
+var dbx = new Dropbox({ accessToken: require('./accesstoken.js') });
 
 export default class jukandoit extends Component {
   onPressPlay() {
+dbx.filesListFolder({path: ''})
+  .then(function(response) {
+    console.log(response);
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
 console.log(Sound.MAIN_BUNDLE);
 console.log(Sound.CACHES);
     //var s = new Sound('advertising.mp3')

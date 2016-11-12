@@ -42,3 +42,6 @@ android/keystores/debug.keystore
 
 # other junk
 .index.android.js.swp
+
+# jukandoit
+accesstoken.js

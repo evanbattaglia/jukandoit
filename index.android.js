@@ -17,7 +17,10 @@ const Sound = require('react-native-sound');
 
 export default class jukandoit extends Component {
   onPressPlay() {
-    var s = new Sound('advertising.mp3', Sound.MAIN_BUNDLE, (e) => {
+console.log(Sound.MAIN_BUNDLE);
+console.log(Sound.CACHES);
+    //var s = new Sound('advertising.mp3')
+    var s = new Sound('/storage/emulated/0/Download/Pachelbel - Canon in D Major.mp3', '/', (e) => {
       if (e) {
         console.log('error', e);
       } else {

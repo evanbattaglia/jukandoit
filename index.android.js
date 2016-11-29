@@ -10,7 +10,9 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  ListView,
+  TouchableHighlight
 } from 'react-native';
 const Sound = require('react-native-sound');
 const config = require('./config.js');
@@ -106,24 +108,46 @@ console.log("writing to " + dest);
   }
 
   render() {
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    ds = ds.cloneWithRows([ { name: "myfile", type: "music" } ]);
+    const renderRow = (data, secID, rowID, highlightRow) => (
+      <TouchableHighlight onPress={() => {
+        console.warn("clicked");
+          //this._pressRow(rowID);
+        //highlightRow(secID, rowID);
+      }}>
+        <View style={{flexDirection: 'row', backgroundColor: 'white'}}>
+          <View>
+            <Text>
+              {data.name}
+            </Text>
+            <Text>{data.type}</Text>
+          </View>
+        </View>
+      </TouchableHighlight>
+    );
+
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <ListView
+          style={{flex: 1}}
+          dataSource={ds}
+          renderRow={renderRow}
+        />
+
+
+      <View style={{flexDirection: 'row'}}>
+        <Text>1:23</Text>
         <Button
           onPress={this.onPressPlay.bind(this)}
-          title="Pleay"
+          title="Play"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
+        <Button onPress={() => {}} title="Stop" />
+        <Button onPress={() => {}} title="Next" />
+        <Button onPress={() => {}} title="Pause" />
+      </View>
 
       </View>
     );

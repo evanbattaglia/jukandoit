@@ -1,8 +1,9 @@
-import controlActions from '../actions/control';
+import * as controlActions from '../actions/control';
 
 const initialStateControl = {
   state: 'initial', // TODO: enum or something, shared with view
 };
+
 function control(state = initialStateControl, action) {
   switch (action) {
     case controlActions.PLAY_SONG:

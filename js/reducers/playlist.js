@@ -1,4 +1,4 @@
-import controlActions from '../actions/playlist';
+import * as playlistActions from '../actions/playlist';
 
 const initialStatePlaylist = {
   // later: playlist name

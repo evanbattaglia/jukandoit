@@ -1,66 +1,27 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ListView,
-  TouchableHighlight
-} from 'react-native';
-import MusicPlayer from './components/MusicPlayer';
-//import MusicPlayer from './components/FileList';
+// Reduxified app (that is, app with Redux "Provider" container around it)
+// Actual app is in components/JukandoitApp
 
-class FileList extends Component {
-  renderRow(data, secID, rowID, highlightRow) {
-    return (
-      <TouchableHighlight onPress={() => {
-        console.warn("clicked");
-          //this._pressRow(rowID);
-        //highlightRow(secID, rowID);
-      }}>
-        <View style={{flexDirection: 'row', backgroundColor: 'white'}}>
-          <View>
-            <Text>
-              {data.name}
-            </Text>
-            <Text>{data.type}</Text>
-          </View>
-        </View>
-      </TouchableHighlight>
-    );
-  }
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+
+//import thunkMiddleware from 'redux-thunk'
+//import createLogger from 'redux-logger'
+
+import appReducer from './reducer'
+import JukandoitApp from './components/JukandoitApp'
+
+const store = createStore(
+  appReducer
+//  , applyMiddleware(thunkMiddleware, createLogger())
+);
+
+export default class JukandoitReduxApp extends Component {
   render() {
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    ds = ds.cloneWithRows([ { name: "myfile", type: "music" } ]);
-
     return (
-      <ListView
-        style={{flex: 1}}
-        dataSource={ds}
-        renderRow={this.renderRow}
-      />
+      <Provider store={store}>
+        <JukandoitApp />
+      </Provider>
     );
   }
 }
-
-export default class jukandoit extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <FileList />
-        <MusicPlayer />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
-
-
-

@@ -5,14 +5,19 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 
-//import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk'
 //import createLogger from 'redux-logger'
 
 import appReducer from './reducer'
 import JukandoitApp from './components/JukandoitApp'
 
+import {loadDirectory} from './actions/filelist';
+console.log(loadDirectory);
+console.log('is a dir silly');
+
 const store = createStore(
   appReducer
+  , applyMiddleware(thunkMiddleware)
 //  , applyMiddleware(thunkMiddleware, createLogger())
 );
 
@@ -25,3 +30,5 @@ export default class JukandoitReduxApp extends Component {
     );
   }
 }
+
+store.dispatch(loadDirectory('/'));

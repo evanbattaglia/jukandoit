@@ -13,7 +13,8 @@
     "react-native-fs": "2.0.1-rc.2",
     "react-native-sound": "git://github.com/evanbattaglia/react-native-sound.git#evanbattaglia/files-from-app-data-dir",
     "react-redux": "^4.4.6",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "babel-jest": "17.0.0",

@@ -17,10 +17,6 @@ export default class FileList extends Component {
 
  componentWillReceiveProps(nextProps) {
    // Only update the datasource if the files have changed.
-   // TODO IMPORTANT TEST
-   console.log('--update');
-   console.log(nextProps);
-   console.log('--update--');
    if (nextProps.files !== this.props.files) {
      this.setState({
        dataSource: this.state.dataSource.cloneWithRows(nextProps.files)
@@ -29,9 +25,9 @@ export default class FileList extends Component {
  }
 
   render() {
-    console.log("wtf");
     return (
-      // TODO: do we really want enableEmpySecionts? makes a warning go away
+      // TODO: do we really want enableEmpySections? makes a warning go away
+      // mayble we action want sections
       <ListView
         enableEmptySections={true}
         style={{flex: 1}}

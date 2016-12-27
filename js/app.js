@@ -12,8 +12,6 @@ import appReducer from './reducer'
 import JukandoitApp from './components/JukandoitApp'
 
 import {loadDirectory} from './actions/filelist';
-console.log(loadDirectory);
-console.log('is a dir silly');
 
 const store = createStore(
   appReducer

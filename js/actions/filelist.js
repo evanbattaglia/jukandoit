@@ -1,12 +1,4 @@
-// dummy
-const serverFetchDirectory = (directory) => new Promise((res, rej) => {
-  console.log("here we go");
-  setTimeout(() => {
-  console.log("here we goagain");
-    res([ { name: 'foo', type: 'bar' } ]);
-  }, 1000);
-});
-
+import * as dropbox from '../dropbox';
 
 export const LOAD_DIRECTORY_REQUEST = 'LOAD_DIRECTORY_REQUEST';
 export const LOAD_DIRECTORY_SUCCESS = 'LOAD_DIRECTORY_SUCCESS';
@@ -14,9 +6,12 @@ export const LOAD_DIRECTORY_ERROR = 'LOAD_DIRECTORY_ERROR';
 
 export const loadDirectory = (directory) => (dispatch) => {
   dispatch(loadDirectoryRequest(directory));
-  serverFetchDirectory(directory)
+  dropbox.listFiles(directory)
     .then(files => dispatch(loadDirectorySuccess(directory, files)))
-    .catch(error => dispatch(loadDirectoryFailure(directory, error)));
+    .catch(error => {
+      console.log("DOWNLOAD ERROR", error);
+      dispatch(loadDirectoryFailure(directory, error))
+    });
 };
 
 // NOTE: this won't change current directory or files.

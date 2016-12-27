@@ -1,12 +1,13 @@
+// TODO: lots of work here. change into container / dumb component, but
+// will be more compilcated with music playback.
+
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
+import * as dropbox from '../dropbox';
 
 const Sound = require('react-native-sound');
-const config = require('../../config.js');
 var RNFS = require('react-native-fs');
 
-var Dropbox = require('dropbox');
-var dbx = new Dropbox({ accessToken: config.accessToken });
 var b64 = require('base-64');
 
 
@@ -67,7 +68,7 @@ export default class MusicPlayer extends Component {
   onPressPlay() {
     const dest = RNFS.DocumentDirectoryPath + '/play.mp3';
     console.log("downloading... to ", dest);
-    dbx.filesDownload({path: config.testSong })
+    dropbox.downloadSong()
     .then(function(resp) {
       console.log("writing the base64");
       const str = base64ArrayBuffer(resp.fileArrayBuffer);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 
 const Sound = require('react-native-sound');
-const config = require('../config.js');
+const config = require('../../config.js');
 var RNFS = require('react-native-fs');
 
 var Dropbox = require('dropbox');

@@ -8,7 +8,7 @@ const PARENT_DIRECTORY_MOCK_FILE = {
   type: 'folder',
 };
 
-export function downloadSong(path = config.testSong) {
+export function downloadSong(path) {
   return dropbox.filesDownload({path});
 }
 

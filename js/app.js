@@ -12,6 +12,7 @@ import appReducer from './reducer'
 import JukandoitApp from './components/JukandoitApp'
 
 import {loadDirectory} from './actions/filelist';
+import config from '../config';
 
 const store = createStore(
   appReducer
@@ -29,4 +30,5 @@ export default class JukandoitReduxApp extends Component {
   }
 }
 
-store.dispatch(loadDirectory('/'));
+
+store.dispatch(loadDirectory(config.startDirectory || ''));

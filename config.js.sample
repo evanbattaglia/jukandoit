@@ -1,0 +1,4 @@
+module.exports = {
+  accessToken: 'foobarGetthisFromDropbox',
+  startDirectory: '/path/to/my/music/',
+};

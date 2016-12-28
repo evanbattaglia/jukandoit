@@ -5,6 +5,14 @@ import {
   View,
   TouchableHighlight,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+const ICON_COLORS = {
+  folder: "#060",
+  music: "#01f",
+  file: "#aaa",
+  // TODO: external stylesheet?
+};
 
 export default class FileList extends Component {
   // We put dataSource in state so we can only update it when "files" has changed.
@@ -33,13 +41,13 @@ export default class FileList extends Component {
         style={{flex: 1}}
         dataSource={this.state.dataSource}
         renderRow={(data, secID, rowID, highlightRow) => (
-          <TouchableHighlight onPress={this.props.onPress}>
+          <TouchableHighlight onPress={() => this.props.onPress(this.props.directory, data)}>
             <View style={{flexDirection: 'row', backgroundColor: 'white'}}>
+              <Icon name={data.type} size={30} color={ICON_COLORS[data.type]} />
               <View>
                 <Text>
                   {data.name}
                 </Text>
-                <Text>{data.type}</Text>
               </View>
             </View>
           </TouchableHighlight>

@@ -14,7 +14,7 @@ function filelist(state = initialStateFilelist, action) {
   // enter directory...
   switch (action.type) {
     case LOAD_DIRECTORY_SUCCESS:
-      return Object.assign({}, state, {files: action.files});
+      return Object.assign({}, state, {files: action.files, directory: action.directory });
   }
   return state;
 }

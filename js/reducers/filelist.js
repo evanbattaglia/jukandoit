@@ -5,7 +5,7 @@ import {
 const initialStateFilelist = {
   directory: null,
   files: [
-    {name: "loading", type: "dummy"},
+    {name: "loading", type: "hourglass-1"},
   ],
   loading: true,
 };

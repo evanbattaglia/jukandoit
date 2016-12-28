@@ -1,8 +1,8 @@
-import * as dropbox from '../dropbox';
+import * as dropbox from '../lib/dropbox';
 
-export const LOAD_DIRECTORY_REQUEST = 'LOAD_DIRECTORY_REQUEST';
-export const LOAD_DIRECTORY_SUCCESS = 'LOAD_DIRECTORY_SUCCESS';
-export const LOAD_DIRECTORY_ERROR = 'LOAD_DIRECTORY_ERROR';
+export const LOAD_DIRECTORY_REQUEST = 'FILELIST_LOAD_DIRECTORY_REQUEST';
+export const LOAD_DIRECTORY_SUCCESS = 'FILELIST_LOAD_DIRECTORY_SUCCESS';
+export const LOAD_DIRECTORY_ERROR = 'FILELIST_LOAD_DIRECTORY_ERROR';
 
 export const loadDirectory = (directory) => (dispatch) => {
   dispatch(loadDirectoryRequest(directory));

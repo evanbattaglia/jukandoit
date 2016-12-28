@@ -1,6 +1,6 @@
 export const LOAD_SONG = 'CONTROL_LOAD_SONG';
 
-export function loadSong(song) {
-  return { type: LOAD_SONG, song };
+export function loadSong(path) {
+  return { type: LOAD_SONG, path };
 }
 

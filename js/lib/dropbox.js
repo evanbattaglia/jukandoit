@@ -1,5 +1,5 @@
-const config = require('../config.js');
-const Dropbox = require('dropbox');
+const config = require('../../config.js');
+import Dropbox from 'dropbox';
 const dropbox = new Dropbox({ accessToken: config.accessToken });
 
 const DIRECTORY_SEPARATOR = '/';

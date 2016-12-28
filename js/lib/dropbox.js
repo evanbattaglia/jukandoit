@@ -1,9 +1,8 @@
 const config = require('../../config.js');
 import Dropbox from 'dropbox';
+import {PARENT_DIRECTORY_SENTINEL} from './path';
 const dropbox = new Dropbox({ accessToken: config.accessToken });
 
-const DIRECTORY_SEPARATOR = '/';
-const PARENT_DIRECTORY_SENTINEL = '..';
 const PARENT_DIRECTORY_MOCK_FILE = {
   name: PARENT_DIRECTORY_SENTINEL,
   type: 'folder',
@@ -39,17 +38,3 @@ export function listFiles(directory) {
     });
 }
 
-export function pathJoin(directory, file) {
-  const dirParts = directory.split(DIRECTORY_SEPARATOR).filter(part => part);
-  if (file === PARENT_DIRECTORY_SENTINEL) {
-    dirParts.pop();
-  } else {
-    dirParts.push(file);
-  }
-
-  if (dirParts.length === 0) {
-    return ''; // Dropbox likes root directory called '' not '/'
-  } else {
-    return DIRECTORY_SEPARATOR + dirParts.join(DIRECTORY_SEPARATOR);
-  }
-}

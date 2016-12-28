@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import control from './reducers/control';
+import player from './reducers/player';
 import filelist from './reducers/filelist';
 import playlist from './reducers/playlist';
 const reducer = combineReducers({
-  control, filelist, playlist
+  player, filelist, playlist
 });
 export default reducer;

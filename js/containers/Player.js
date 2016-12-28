@@ -1,10 +1,7 @@
-import Filelist from '../components/Filelist';
+import Player from '../components/Player';
 import {connect} from 'react-redux';
-import {loadDirectory} from '../actions/filelist';
-import {loadSong} from '../actions/player';
-import {absolutePathJoin} from '../lib/path';
 
-const mapStateToProps = state => state.filelist;
+const mapStateToProps = state => state.player;
 
 const mapDispatchToProps = (dispatch) => ({
 
@@ -20,5 +17,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 });
 
-const FilelistContainer = connect(mapStateToProps, mapDispatchToProps)(Filelist);
-export default FilelistContainer;
+const PlayerContainer = connect(mapStateToProps, mapDispatchToProps)(Player);
+export default PlayerContainer;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import MusicPlayer from './MusicPlayer';
+import Player from '../containers/Player';
 import Filelist from '../containers/Filelist';
 
 export default class JukandoitApp extends Component {
@@ -8,7 +8,7 @@ export default class JukandoitApp extends Component {
     return (
       <View style={styles.container}>
         <Filelist />
-        <MusicPlayer />
+        <Player />
       </View>
     );
   }

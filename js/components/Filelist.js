@@ -7,12 +7,19 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ICON_COLORS = {
-  folder: "#060",
-  music: "#01f",
-  file: "#aaa",
-  // TODO: external stylesheet?
+const ICON_COLORS_BY_LOCAL = {
+  false: {
+    folder: "#060",
+    music: "#69f",
+    file: "#ddd",
+  },
+  true: {
+    music: "#01b",
+  },
 };
+
+const ICON_COLORS_LOCAL = {
+}
 
 export default class FileList extends Component {
   // We put dataSource in state so we can only update it when "files" has changed.
@@ -43,7 +50,8 @@ export default class FileList extends Component {
         renderRow={(data, secID, rowID, highlightRow) => (
           <TouchableHighlight onPress={() => this.props.onPress(this.props.directory, data)}>
             <View style={{flexDirection: 'row', backgroundColor: 'white'}}>
-              <Icon name={data.type} size={30} color={ICON_COLORS[data.type]} />
+              <Icon name={data.type} size={30}
+                color={ICON_COLORS_BY_LOCAL[!!data.local][data.type]} />
               <View>
                 <Text>
                   {data.name}

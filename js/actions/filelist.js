@@ -1,4 +1,4 @@
-import * as dropbox from '../lib/dropbox';
+import {dropboxListFilesWithExistence} from '../lib/filesystem';
 
 export const LOAD_DIRECTORY_REQUEST = 'FILELIST_LOAD_DIRECTORY_REQUEST';
 export const LOAD_DIRECTORY_SUCCESS = 'FILELIST_LOAD_DIRECTORY_SUCCESS';
@@ -6,7 +6,7 @@ export const LOAD_DIRECTORY_ERROR = 'FILELIST_LOAD_DIRECTORY_ERROR';
 
 export const loadDirectory = (directory) => (dispatch) => {
   dispatch(loadDirectoryRequest(directory));
-  dropbox.listFiles(directory)
+  dropboxListFilesWithExistence(directory)
     .then(files => dispatch(loadDirectorySuccess(directory, files)))
     .catch(error => {
       console.log("DOWNLOAD ERROR", error);

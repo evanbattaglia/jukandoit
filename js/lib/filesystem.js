@@ -1,7 +1,8 @@
-import {downloadSong} from './dropbox';
+import {downloadSong, listFiles} from './dropbox';
 import RNFS from 'react-native-fs';
 import {base64ArrayBuffer} from './base64';
 import {dirname, absolutePathJoin} from './path';
+import co from 'co';
 
 export const fullLocalPathFor = path => absolutePathJoin(RNFS.DocumentDirectoryPath, 'music', path);
 export const existsLocally = localPath => RNFS.exists(fullLocalPathFor(localPath))
@@ -34,13 +35,13 @@ export function playSongFromDropbox(path) {
 }
 
 // Run a dropbox list files operation, but add {local: true} / {local: false}
-export function dropboxListFilesWithExistence(directory) {
-  let pathsToCheck;
-  /*  return listFiles(directory)
-    .then(results => {
-      pathsToCheck = results.filter(file => file.type === 'music').map(file => file.name 
-    }).
-    */
+export const dropboxListFilesWithExistence = co.wrap(function *(directory) {
+  const files = yield listFiles(directory);
+  for (const file of files) {
+    if (file.type === 'music') {
+      file.local = existsLocally(absolutePathJoin(directory, file.name));
+    }
+  }
 
-}
-
+  return yield files; // resolve promises
+});

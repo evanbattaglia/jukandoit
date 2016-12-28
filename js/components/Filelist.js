@@ -44,6 +44,8 @@ export default class FileList extends Component {
       // TODO: do we really want enableEmpySections? makes a warning go away
       // mayble we action want sections
       <ListView
+        initialListSize={10}
+        pageSize={10}
         enableEmptySections={true}
         style={{flex: 1}}
         dataSource={this.state.dataSource}

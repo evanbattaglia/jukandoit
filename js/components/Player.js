@@ -3,6 +3,8 @@ import { Text, View, Button } from 'react-native';
 import { fullLocalPathFor } from '../lib/filesystem';
 import Sound from 'react-native-sound';
 
+let sound;
+
 export default class Player extends Component {
   constructor() {
     super();
@@ -10,28 +12,28 @@ export default class Player extends Component {
   }
 
   load(path) {
-    if (this.sound) this.sound.release();
+    if (sound) sound.release();
     // TODO: maybe put sound in state???
-    this.sound = new Sound(fullLocalPathFor(path), '/', (e) => {
+    sound = new Sound(fullLocalPathFor(path), '/', (e) => {
       if (e) {
         console.log('error', e);
       } else {
-        this.setState({ loaded: true, duration: this.sound.getDuration() });
+        this.setState({ loaded: true, duration: sound.getDuration() });
         this.play();
       }
     });
   }
 
   stop() {
-    this.sound.stop();
+    sound.stop();
     this.setState({ playing: false });
   }
   play() {
-    this.sound.play();
+    sound.play();
     this.setState({ playing: true });
   }
   pause() {
-    this.sound.pause();
+    sound.pause();
     this.setState({ playing: false });
   }
 
@@ -47,7 +49,7 @@ export default class Player extends Component {
           <Text>{this.state.duration}</Text>
           <Button
             title={this.state.playing ? 'Pause' : 'Play' }
-            disabled={!this.sound}
+            disabled={!sound}
             onPress={() => this.state.playing ? this.pause() : this.play()}
 
             color="#841584"
@@ -55,7 +57,7 @@ export default class Player extends Component {
           />
           <Button
             title="Stop"
-            disabled={!this.sound || !this.state.playing}
+            disabled={!sound || !this.state.playing}
             onPress={() => this.stop()}
           />
         </View>

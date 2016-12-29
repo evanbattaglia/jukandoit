@@ -43,15 +43,18 @@ export function *localListFiles(directory) {
     name: file.name,
     type: file.isDirectory() ? 'folder' : file.name.match(/\.(mp3|ogg)$/i) ? 'music' : 'file',
   }));
-  for (const f in files) if (f.type === 'music') f.local = true;
+  for (const f of files) if (f.type === 'music') f.local = true;
   files.unshift({ name: '..', type: 'folder' });
   return files;
 };
 
 //// TODO move this out
-
+// TODO using co here enables us to yield the hash with promises. but we then depend on co,
+// instead of using redux-saga's generator stuff.
+// could probably do a different way.
+//
 // Run a dropbox list files operation, but add {local: true} / {local: false}
-export function *dropboxListFilesWithExistence(directory) {
+export const dropboxListFilesWithExistence = co.wrap(function* (directory) {
   const files = yield listFiles(directory);
   for (const file of files) {
     if (file.type === 'music') {
@@ -60,7 +63,7 @@ export function *dropboxListFilesWithExistence(directory) {
   }
 
   return yield files; // resolve promises
-};
+});
 
 const MODES = {
   dropbox: dropboxListFilesWithExistence,

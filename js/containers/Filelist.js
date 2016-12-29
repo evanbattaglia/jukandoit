@@ -1,7 +1,7 @@
 import Filelist from '../components/Filelist';
 import {connect} from 'react-redux';
 import {loadDirectoryRequest} from '../actions/filelist';
-import {loadSong} from '../actions/player';
+import {loadSongRequest} from '../actions/player';
 import {absolutePathJoin} from '../lib/path';
 
 const mapStateToProps = state => state.filelist;
@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
     if (file.type === 'folder') {
       dispatch(loadDirectoryRequest(path));
     } else if (file.type === 'music') {
-      dispatch(loadSong(path));
+      dispatch(loadSongRequest(path));
     }
   },
 

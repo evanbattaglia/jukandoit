@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-import thunkMiddleware from 'redux-thunk';
 //import createLogger from 'redux-logger'
 
 import createSagaMiddleware from 'redux-saga';
@@ -21,9 +20,8 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   appReducer
-  , applyMiddleware(thunkMiddleware)
   , applyMiddleware(sagaMiddleware)
-//  , applyMiddleware(thunkMiddleware, createLogger())
+//  , applyMiddleware(sagaMiddleware, createLogger())
 );
 
 sagaMiddleware.run(sagas);

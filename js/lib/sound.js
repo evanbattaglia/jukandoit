@@ -35,15 +35,16 @@ export function unload() {
 }
 
 export function play() {
-    console.log("playing?!");
   if (sound) {
-    console.log("playing yeah!");
     sound.play(onEnd);
   }
 }
 
 export function stop() {
-  if (sound) sound.stop();
+  if (sound) {
+    sound.stop();
+    sound.setCurrentTime(0);
+  }
 }
 
 export function pause() {

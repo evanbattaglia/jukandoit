@@ -16,9 +16,9 @@ export default function reducer(state = initialStateFilelist, action) {
   // enter directory...
   switch (action.type) {
     case LOAD_DIRECTORY_SUCCESS:
-      return Object.assign({}, state, {files: action.files, directory: action.directory });
+      return {...state, files: action.files, directory: action.directory };
     case SWITCH_MODE:
-      return Object.assign({}, state, {mode: action.mode});
+      return {...state, mode: action.mode};
   }
   return state;
 }

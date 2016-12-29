@@ -34,20 +34,9 @@ export function playSongFromDropbox(path) {
     .catch(function(e) { console.log("shucks howdy:", e); });
 }
 
-// Run a dropbox list files operation, but add {local: true} / {local: false}
-export const dropboxListFilesWithExistence = co.wrap(function *(directory) {
-  const files = yield listFiles(directory);
-  for (const file of files) {
-    if (file.type === 'music') {
-      file.local = existsLocally(absolutePathJoin(directory, file.name));
-    }
-  }
-
-  return yield files; // resolve promises
-});
-
-// TODO TODO: dedup with dropbox stuff -- esp music regex, dummy '..' directory
-export const localListFiles = co.wrap(function *(directory) {
+// TODO TODO: dedup with dropbox stuff -- esp music regex, dummy '..' directory, and ogg check.
+// make local return same thing as dropbox, then move eeverything else up
+export function *localListFiles(directory) {
   const rnfsFiles = yield RNFS.readDir(fullLocalPathFor(directory));
 
   const files = rnfsFiles.map(file => ({
@@ -57,4 +46,27 @@ export const localListFiles = co.wrap(function *(directory) {
   for (const f in files) if (f.type === 'music') f.local = true;
   files.unshift({ name: '..', type: 'folder' });
   return files;
-});
+};
+
+//// TODO move this out
+
+// Run a dropbox list files operation, but add {local: true} / {local: false}
+export function *dropboxListFilesWithExistence(directory) {
+  const files = yield listFiles(directory);
+  for (const file of files) {
+    if (file.type === 'music') {
+      file.local = existsLocally(absolutePathJoin(directory, file.name));
+    }
+  }
+
+  return yield files; // resolve promises
+};
+
+const MODES = {
+  dropbox: dropboxListFilesWithExistence,
+  local: localListFiles,
+};
+
+export function *listFilesViaMode(directory, mode) {
+  return yield (MODES[mode](directory));
+}

@@ -10,7 +10,6 @@ const initialStateplayer = {
 };
 
 function player(state = initialStateplayer, action) {
-      console.log("looks like we got a ", action, "on our hands");
   switch (action.type) {
     case playerActions.LOAD_SONG_REQUEST:
       // Ensures that if we load during a load, lastState will never be "loading" so

@@ -20,21 +20,19 @@ function typeForDropboxEntry(entry) {
   }
 }
 
-export function listFiles(directory) {
+export function *listFiles(directory) {
+  console.log("too good to be true?");
   const path = directory == '/' ? '' : directory;
+  const resp = yield dropbox.filesListFolder({path})
+  const files = resp.entries.map((entry) => ({
+    name: entry.name,
+    type: typeForDropboxEntry(entry),
+  }));
 
-  return dropbox.filesListFolder({path})
-    .then(resp => {
-      const files = resp.entries.map((entry) => ({
-        name: entry.name,
-        type: typeForDropboxEntry(entry),
-      }));
+  if (path) {
+    files.unshift(PARENT_DIRECTORY_MOCK_FILE);
+  }
 
-      if (path) {
-        files.unshift(PARENT_DIRECTORY_MOCK_FILE);
-      }
-
-      return files;
-    });
+  return files;
 }
 

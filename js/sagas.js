@@ -3,6 +3,7 @@ import * as filelistActions from './actions/filelist';
 import * as playerActions from './actions/player';
 import { listFilesViaMode, ensureLocalExists } from './lib/filesystem';
 import { getFilelistMode, getFilelistDirectory } from './reducer';
+import * as sound from './lib/sound';
 
 ////////////////////////////////////////////////////
 
@@ -24,9 +25,11 @@ export function *reload() {
   yield put(filelistActions.loadDirectoryRequest(currentDirectory));
 }
 
+/////////////
+
 export function *loadSong(action) {
   try {
-    yield ensureLocalExists(action.path);
+    yield call(ensureLocalExists, action.path);
     yield put(playerActions.loadSongSuccess(action.path));
   } catch (error) {
     console.log("LOAD SONG ERROR", error);

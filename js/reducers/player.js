@@ -1,28 +1,28 @@
 import * as playerActions from '../actions/player';
 
-export const STATE_INITIAL = 'initial';
-export const STATE_LOADING = 'loading';
-export const STATE_LOADED = 'loaded';
-export const STATE_PLAYING = 'playing';
-export const STATE_PAUSED = 'paused';
+export const STATUS_INITIAL = 'initial';
+export const STATUS_LOADING = 'loading';
+export const STATUS_LOADED = 'loaded';
+export const STATUS_PLAYING = 'playing';
+export const STATUS_PAUSED = 'paused';
 
-const initialStateplayer = {
-  state: STATE_INITIAL,
+const initialStatePlayer = {
+  status: STATUS_INITIAL,
   path: '',
   duration: null,
   time: null,
 };
 
-function player(state = initialStateplayer, action) {
+function player(state = initialStatePlayer, action) {
   switch (action.type) {
     case playerActions.LOAD_SONG_REQUEST:
-      // Ensures that if we load during a load, lastState will never be "loading" so
+      // Ensures that if we load during a load, lastStatus will never be "loading" so
       // we will never go back to "loading" upon failure.
-      return { ...state, state: STATE_LOADING, lastState: state.lastState || state.state };
+      return { ...state, status: STATUS_LOADING, lastStatus: state.lastStatus || state.status };
     case playerActions.LOAD_SONG_SUCCESS:
-      return { ...state, state: STATE_LOADED, lastState: null, path: action.path };
+      return { ...state, status: STATUS_PLAYING, lastStatus: null, path: action.path };
     case playerActions.LOAD_SONG_FAILURE:
-      return { ...state, state: state.lastState, lastState: null }; // path is unchanged. revert.
+      return { ...state, status: state.lastStatus, lastStatus: null }; // path is unchanged. revert.
   }
   return state;
 }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
-import { fullLocalPathFor } from '../lib/filesystem';
-import Sound from 'react-native-sound';
 
 let sound;
 
@@ -14,14 +12,6 @@ export default class Player extends Component {
   load(path) {
     if (sound) sound.release();
     // TODO: maybe put sound in state???
-    sound = new Sound(fullLocalPathFor(path), '/', (e) => {
-      if (e) {
-        console.log('error', e);
-      } else {
-        this.setState({ loaded: true, duration: sound.getDuration() });
-        this.play();
-      }
-    });
   }
 
   stop() {
@@ -35,11 +25,6 @@ export default class Player extends Component {
   pause() {
     sound.pause();
     this.setState({ playing: false });
-  }
-
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.path !== this.props.path) this.load(nextProps.path);
   }
 
   render() {

@@ -12,6 +12,7 @@ import sagas from './sagas';
 
 import appReducer from './reducer'
 import JukandoitApp from './components/JukandoitApp'
+import soundUpdateFromState from './sound_subscriber';
 
 import {loadDirectoryRequest} from './actions/filelist';
 import config from '../config';
@@ -35,6 +36,9 @@ export default class JukandoitReduxApp extends Component {
     );
   }
 }
+
+//
+store.subscribe(() => soundUpdateFromState(store.getState()));
 
 // -----------------
 // Load directory on bootup.

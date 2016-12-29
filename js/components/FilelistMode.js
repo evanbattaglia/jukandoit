@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 
-const FilelistMode = ({ onPressDropbox, onPressLocal, onPressPlaylist }) => (
+const FilelistMode = ({ mode, onPress }) => (
   <View style={{flexDirection: 'row'}}>
-    <Button title="Dropbox" onPress={onPressDropbox} />
-    <Button title="Local" onPress={onPressLocal} />
-    <Button title="Playlist" onPress={onPressPlaylist} />
+    <Button title="Dropbox" onPress={() => onPress('dropbox')} disabled={mode === 'dropbox'} />
+    <Button title="Local" onPress={() => onPress('local')} disabled={mode === 'local'} />
+    <Button title="Playlist" onPress={() => onPress('playlist')} disabled={mode === 'playlist'} />
   </View>
 );
 export default FilelistMode;

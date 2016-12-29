@@ -1,14 +1,12 @@
 import FilelistMode from '../components/FilelistMode';
 import {connect} from 'react-redux';
 import {switchMode} from '../actions/filelist';
+import {getFilelistMode} from '../reducer';
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = state => ({ mode: getFilelistMode(state) });
 
 const mapDispatchToProps = (dispatch) => ({
-  onPressDropbox() { dispatch(switchMode('dropbox')) },
-  onPressLocal() { dispatch(switchMode('local')) },
-  onPressPlaylist() {},
+  onPress(mode) { dispatch(switchMode(mode)) },
 });
 
 const FilelistModeContainer = connect(mapStateToProps, mapDispatchToProps)(FilelistMode);

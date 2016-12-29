@@ -7,10 +7,10 @@ import { listFilesViaMode } from './lib/filesystem';
 import { getFilelistMode, getFilelistDirectory } from './reducer';
 
 export function* loadDirectory(action) {
-  try {
   const directory = action.directory;
   const mode = yield select(getFilelistMode);
 
+  try {
     const files = yield call(listFilesViaMode, directory, mode);
     yield put(loadDirectorySuccess(directory, files));
   } catch (error) {

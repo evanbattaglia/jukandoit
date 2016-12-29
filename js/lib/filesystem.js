@@ -7,8 +7,6 @@ import co from 'co';
 export const fullLocalPathFor = path => absolutePathJoin(RNFS.DocumentDirectoryPath, 'music', path);
 export const existsLocally = localPath => RNFS.exists(fullLocalPathFor(localPath))
 
-// consider factoring out dropbox-specific stuff out of this
-
 function downloadToLocal(path) {
   const dest = fullLocalPathFor(path);
   const destDirectory = dirname(dest);
@@ -36,8 +34,17 @@ export function playSongFromDropbox(path) {
 
 // TODO TODO: dedup with dropbox stuff -- esp music regex, dummy '..' directory, and ogg check.
 // make local return same thing as dropbox, then move eeverything else up
+const parentFolder = { name: '..', type: 'folder' };
+
 export function *localListFiles(directory) {
-  const rnfsFiles = yield RNFS.readDir(fullLocalPathFor(directory));
+  let rnfsFiles;
+  try {
+    rnfsFiles = yield RNFS.readDir(fullLocalPathFor(directory));
+  } catch (e) {
+    // directory doesn't exist locally.
+    // TODO: probably want to do a similar catch for dropbox, in case we've deleted data from dropbox.
+    return [parentFolder];
+  }
 
   const files = rnfsFiles.map(file => ({
     name: file.name,

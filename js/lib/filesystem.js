@@ -45,3 +45,16 @@ export const dropboxListFilesWithExistence = co.wrap(function *(directory) {
 
   return yield files; // resolve promises
 });
+
+// TODO TODO: dedup with dropbox stuff -- esp music regex, dummy '..' directory
+export const localListFiles = co.wrap(function *(directory) {
+  const rnfsFiles = yield RNFS.readDir(fullLocalPathFor(directory));
+
+  const files = rnfsFiles.map(file => ({
+    name: file.name,
+    type: file.isDirectory() ? 'folder' : file.name.match(/\.(mp3|ogg)$/i) ? 'music' : 'file',
+  }));
+  for (const f in files) if (f.type === 'music') f.local = true;
+  files.unshift({ name: '..', type: 'folder' });
+  return files;
+});

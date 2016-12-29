@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Button,
   Text,
   ListView,
   View,
@@ -43,26 +44,26 @@ export default class FileList extends Component {
     return (
       // TODO: do we really want enableEmpySections? makes a warning go away
       // mayble we action want sections
-      <ListView
-        initialListSize={10}
-        pageSize={10}
-        enableEmptySections={true}
-        style={{flex: 1}}
-        dataSource={this.state.dataSource}
-        renderRow={(data, secID, rowID, highlightRow) => (
-          <TouchableHighlight onPress={() => this.props.onPress(this.props.directory, data)}>
-            <View style={{flexDirection: 'row', backgroundColor: 'white'}}>
-              <Icon name={data.type} size={30}
-                color={ICON_COLORS_BY_LOCAL[!!data.local][data.type]} />
-              <View>
-                <Text>
-                  {data.name}
-                </Text>
+        <ListView
+          initialListSize={10}
+          pageSize={10}
+          enableEmptySections={true}
+          style={{flex: 1}}
+          dataSource={this.state.dataSource}
+          renderRow={(data, secID, rowID, highlightRow) => (
+            <TouchableHighlight onPress={() => this.props.onPress(this.props.directory, data)}>
+              <View style={{flexDirection: 'row', backgroundColor: 'white'}}>
+                <Icon name={data.type} size={30}
+                  color={ICON_COLORS_BY_LOCAL[!!data.local][data.type]} />
+                <View>
+                  <Text>
+                    {data.name}
+                  </Text>
+                </View>
               </View>
-            </View>
-          </TouchableHighlight>
-        )}
-      />
+            </TouchableHighlight>
+          )}
+        />
     );
   }
 }

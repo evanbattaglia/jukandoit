@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Player from '../containers/Player';
 import Filelist from '../containers/Filelist';
+import FilelistMode from '../containers/FilelistMode';
 
-export default class JukandoitApp extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Filelist />
-        <Player />
-      </View>
-    );
-  }
-}
+const JukandoitApp = () => (
+  <View style={styles.container}>
+    <FilelistMode />
+    <Filelist />
+    <Player />
+  </View>
+);
+export default JukandoitApp;
 
 const styles = StyleSheet.create({
   container: {

@@ -16,6 +16,8 @@ const ICON_COLORS_BY_LOCAL = {
   },
   true: {
     music: "#01b",
+    folder: "#060",
+    file: "#ddd",
   },
 };
 

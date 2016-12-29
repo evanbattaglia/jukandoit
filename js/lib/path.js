@@ -23,3 +23,5 @@ export function absolutePathJoin(...paths) {
 }
 
 export const dirname = (path) => absolutePathJoin(path, PARENT_DIRECTORY_SENTINEL);
+
+export const isMusicFile = (name) => name.match(/\.(ogg|mp3)/i);

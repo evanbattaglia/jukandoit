@@ -1,9 +1,9 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import * as filelistActions from './actions/filelist';
 import * as playerActions from './actions/player';
-import { listFilesViaMode, ensureLocalExists } from './lib/filesystem';
+import { listFilesViaMode } from './lib/sources';
+import { ensureLocalExists } from './lib/filesystem';
 import { getFilelistMode, getFilelistDirectory } from './reducer';
-import * as sound from './lib/sound';
 
 ////////////////////////////////////////////////////
 

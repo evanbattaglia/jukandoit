@@ -3,10 +3,6 @@ import Dropbox from 'dropbox';
 import {isMusicFile} from './path';
 const dropbox = new Dropbox({ accessToken: config.accessToken });
 
-export function downloadSong(path) {
-  return dropbox.filesDownload({path});
-}
-
 export function *listFiles(directory) {
   const path = directory == '/' ? '' : directory;
   const resp = yield dropbox.filesListFolder({path})
@@ -17,3 +13,8 @@ export function *listFiles(directory) {
   }));
 }
 
+export const downloadUrl = "https://content.dropboxapi.com/2/files/download";
+export const downloadHeaders = (path) => ({
+  "Authorization": "Bearer " + config.accessToken,
+  "Dropbox-API-Arg": JSON.stringify({path}),
+});

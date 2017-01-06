@@ -2,6 +2,7 @@ import * as dropbox from './dropbox';
 import RNFS from 'react-native-fs';
 import {base64ArrayBuffer} from './base64';
 import {dirname, absolutePathJoin, isMusicFile} from './path';
+const config = require('../../config.js');
 
 export const fullLocalPathFor = path => absolutePathJoin(RNFS.DocumentDirectoryPath, 'music', path);
 export const existsLocally = localPath => RNFS.exists(fullLocalPathFor(localPath))
@@ -24,21 +25,25 @@ export function *listFiles(directory) {
 }
 
 // TODO: maybe move elsewhere
-function downloadToLocal(path) {
+function *downloadToLocal(path) {
   const dest = fullLocalPathFor(path);
   const destDirectory = dirname(dest);
-  return RNFS.mkdir(destDirectory)
-    .then(() => dropbox.downloadSong(path))
-    .then(resp => {
-      // console.log("writing the base64");
-      const str = base64ArrayBuffer(resp.fileArrayBuffer);
-      // console.log(typeof resp.fileArrayBuffer);
-      // console.log("wtf moment ok?", str.substr(0, 100));
-      return RNFS.writeFile(dest, str, 'base64');
-    });
+  const response = yield RNFS.downloadFile({
+    fromUrl: dropbox.downloadUrl,
+    headers: dropbox.downloadHeaders(path),
+    toFile: dest,
+  }).promise;
+  if (response.statusCode == 200) {
+    console.log('FILES Downloaded!')
+  } else {
+    console.log('SERVER ERROR');
+    console.log(response);
+    RNFS.unlink(dest); // throw away promise, don't care if didn't work.
+    throw new Error("Server error: status code = " + response.statusCode);
+  }
 }
 
-export function ensureLocalExists(path) {
-  return existsLocally(path).then(exists => exists || downloadToLocal(path, path));
+export function *ensureLocalExists(path) {
+  if (!(yield existsLocally(path))) yield downloadToLocal(path);
 }
 
